@@ -3,7 +3,7 @@ import { Link  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  // const currentUser = { Myname: "Mustafa Bilal DOĞAN" };
+  // const currentUser = { MyName: "Mustafa Bilal DOĞAN" };
   const currentUser=false
   const navigate = useNavigate();
 
@@ -19,10 +19,10 @@ const Navbar = () => {
         <Link to={"/"} className="navbar-brand text-white">
           <h4>React Movie App</h4>
         </Link>
-        <div className="d-flex text-white align-itemr-center">
+        <div className="d-flex text-white align-items-center">
           {currentUser ? (
             <h5 className="mr-2 text-capitalize">
-              {currentUser?.Myname}
+              {currentUser?.MyName}
             </h5>
           ) : (
             <button

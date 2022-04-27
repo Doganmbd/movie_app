@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {createUser} from "../auth/firebase";
+import {useNavigate} from "react-router-dom";
+
 
 
 const Register = () => {
@@ -7,22 +9,23 @@ const Register = () => {
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  
 
   const handleSubmit = (e) => {
-   
     e.preventDefault();
+    createUser(email,password,navigate)
    
 
     console.log(firstName, lastName,email,password);
   };
   return (
     <div className="d-flex justify-content-center">
-      {window.innerWidth > 700 && (
+      
         <div className="form-image">
           <img src={"https://picsum.photos/800/800"} alt="sample-movie" />
         </div>
-      )}
+      
       <div className="register-form">
         <h1 className="form-title display-3">Register</h1>
         <form id="register" onSubmit={handleSubmit}>

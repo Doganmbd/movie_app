@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {signIn} from "../auth/firebase";
 
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    signIn(email,password,navigate);
    
     console.log(email, password);
   };

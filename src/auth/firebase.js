@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile} from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile, onAuthStateChanged} from "firebase/auth";
 
 
 
@@ -55,5 +55,18 @@ export const signIn =async (email, password,navigate)=> {
 }
 
 
+export const userObserver = (setCurrentUser) => {
+
+    onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          setCurrentUser(currentUser)
+        } else {
+          // User is signed out
+          setCurrentUser(false)
+        }
+      });
+}
 
     

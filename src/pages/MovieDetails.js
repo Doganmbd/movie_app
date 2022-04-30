@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
+import VideoSection from '../components/VideoSection';
 
 const MovieDetails = () => {
 
   const {id} = useParams()
+  const [movieDetail, setMovieDetail] = useState()
+  const [videoKey, setVideoKey] = useState()
+  
 
   const API_KEY = process.env.REACT_APP_TMDB_KEY;
   // const API_KEY = "d6278b3dc3e6f8f8376a89851c3f8c8f";
@@ -15,23 +20,30 @@ const MovieDetails = () => {
 
 
     useEffect(() => {
-      
-    }, [])
+      axios
+        .get(movieDetailBaseUrl)
+        .then((res) => setMovieDetail(res.data))
+        .catch((err) => console.log(err));
+      axios
+        .get(videoUrl)
+        .then((res) => setVideoKey(res.data.results[0].key))
+        .catch((err) => console.log(err));
+    }, [movieDetailBaseUrl, videoUrl]);
     
 
 
 
   return (
     <div className="container py-5">
-      <h1 className="text-center">{movieDetails?.title}</h1>
-      {/* {videoKey && <VideoSection videoKey={videoKey} />} */}
+      <h1 className="text-center">{movieDetail?.title}</h1>
+      {videoKey && <VideoSection videoKey={videoKey} />}
       <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
             <img
               src={
-                movieDetails?.poster_path
-                  ? baseImageUrl + movieDetails?.poster_path
+                movieDetail?.poster_path
+                  ? baseImageUrl + movieDetail?.poster_path
                   : defaultImage
               }
               className="img-fluid rounded-start"
@@ -41,17 +53,17 @@ const MovieDetails = () => {
           <div className="col-md-8 d-flex flex-column ">
             <div className="card-body">
               <h5 className="card-title">Overview</h5>
-              <p className="card-text">{movieDetails?.overview}</p>
+              <p className="card-text">{movieDetail?.overview}</p>
             </div>
             <ul className="list-group ">
               <li className="list-group-item">
-                {"Release Date : " + movieDetails?.release_date}
+                {"Release Date : " + movieDetail?.release_date}
               </li>
               <li className="list-group-item">
-                {"Rate : " + movieDetails?.vote_average}
+                {"Rate : " + movieDetail?.vote_average}
               </li>
               <li className="list-group-item">
-                {"Total Vote : " + movieDetails?.vote_count}
+                {"Total Vote : " + movieDetail?.vote_count}
               </li>
               <li className="list-group-item">
                 <Link to={-1} className="card-link">

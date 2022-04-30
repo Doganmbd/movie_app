@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile, onAuthStateChanged} from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut} from "firebase/auth";
 
 
 
@@ -54,6 +54,10 @@ export const signIn =async (email, password,navigate)=> {
 
 }
 
+export const logOut = () => {
+    signOut(auth);
+    
+  };
 
 export const userObserver = (setCurrentUser) => {
 
@@ -69,4 +73,27 @@ export const userObserver = (setCurrentUser) => {
       });
 }
 
-    
+
+
+
+    //* burada usenavigate kullanamamamızın sebebi hook lar function component or a custom React Hook function.component kullanılır
+  
+
+
+//* https://console.firebase.google.com/
+//* => Authentication => sign-in-method => enable Google
+//! Google ile girişi enable yap
+export const signUpProvider = (navigate) => {
+    //? Google ile giriş yapılması için kullanılan firebase metodu
+    const provider = new GoogleAuthProvider();
+    //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.log(error);
+      });
+  };

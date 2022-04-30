@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { logOut } from "../auth/firebase";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   // const currentUser = { MyName: "Mustafa Bilal DOĞAN" };
-  const currentUser=false
+  // const currentUser=false
   const navigate = useNavigate();
-
+const {currentUser} = useContext(AuthContext)
   return (
     /*   <div>
         <Link to="/" >Main</Link>
@@ -22,7 +24,7 @@ const Navbar = () => {
         <div className="d-flex text-white align-items-center">
           {currentUser ? (
             <h5 className="mr-2 text-capitalize">
-              {currentUser?.MyName}
+              {currentUser?.displayName}
             </h5>
           ) : (
             <button
@@ -37,7 +39,7 @@ const Navbar = () => {
           {currentUser ? (
             <button
               className="mr-2 btn btn-outline-light"
-              
+              onClick={() => logOut()}
               
             >
               Logout

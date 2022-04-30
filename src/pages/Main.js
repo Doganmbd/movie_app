@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MovieCard from '../components/MovieCard';
+import { AuthContext } from '../context/AuthContext';
 
 
 
@@ -11,9 +12,14 @@ const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?api_key=${API_
 const SEARCH_API = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
 
 
+
+
+
 const Main = () => {
 
   const [movies, setMovies] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const {currentUser} = useContext(AuthContext)
 
   useEffect(() => {
     getMovies(FEATURED_API)
@@ -29,10 +35,32 @@ const Main = () => {
     }
   }
 
+  const handleSubmit = (e)=> {
+    e.preventDefault()
+    if(currentUser && searchTerm) {
+      getMovies(SEARCH_API + searchTerm)
+    }else if(!currentUser) {
+      alert("Please login to search for movies")
+    }else {
+      alert("Please enter a search term")
+    }
 
+
+
+  }
 
   return (
     <>
+      <form className="search" onSubmit={handleSubmit} >
+        <input className="search-input" type="search" 
+        onChange = { (e) =>setSearchTerm(e.target.value) }
+        value = {searchTerm}
+        />
+        <button type="submit" >Search</button>
+      </form>
+
+
+    
       <div className="d-flex justify-content-center flex-wrap">
         {movies.map((movie)=>(
           <MovieCard key={movie.id} {...movie}/>

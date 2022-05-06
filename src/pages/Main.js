@@ -1,7 +1,8 @@
-import axios from 'axios';
+ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import MovieCard from '../components/MovieCard';
 import { AuthContext } from '../context/AuthContext';
+import { toastWarnNotify } from "../helpers/ToastNotify";
 
 
 
@@ -40,19 +41,21 @@ const Main = () => {
     if(currentUser && searchTerm) {
       getMovies(SEARCH_API + searchTerm)
     }else if(!currentUser) {
-      alert("Please login to search for movies")
+      /* alert("Please login to search for movies") */
+     toastWarnNotify("Please log in to search a movie");
     }else {
-      alert("Please enter a search term")
+      /* alert("Please enter a search term") */
+     toastWarnNotify("Please enter a text");
     }
 
 
 
   }
 
-  return (
+ return (
     <>
       <form className="search" onSubmit={handleSubmit} >
-        <input className="search-input" type="search" 
+        <input className="search-input" type="search "  placeholder="Search a movie..."
         onChange = { (e) =>setSearchTerm(e.target.value) }
         value = {searchTerm}
         />
@@ -69,6 +72,6 @@ const Main = () => {
 
     </>
   )
-}
+} 
 
-export default Main
+export default Main 

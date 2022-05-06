@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import {createUser} from "../auth/firebase";
 import {useNavigate} from "react-router-dom";
 
@@ -95,3 +95,4 @@ const Register = () => {
 };
 
 export default Register;
+ 

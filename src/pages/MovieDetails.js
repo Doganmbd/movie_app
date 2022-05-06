@@ -1,4 +1,4 @@
-import axios from 'axios';
+ import axios from 'axios'; 
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import VideoSection from '../components/VideoSection';
@@ -78,4 +78,4 @@ const MovieDetails = () => {
   );
 };
 
-export default MovieDetails
+export default MovieDetails 

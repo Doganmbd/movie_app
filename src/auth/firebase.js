@@ -1,6 +1,12 @@
-// Import the functions you need from the SDKs you need
+
+ // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile, onAuthStateChanged, GoogleAuthProvider, signInWithPopup,  signOut} from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signOut} from "firebase/auth";
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+  toastWarnNotify,
+} from "../helpers/ToastNotify";
 
 
 
@@ -34,8 +40,10 @@ export const createUser = async (email, password,navigate,displayName)=> {
         console.log(userCredential);
 
         navigate("/");
+        toastSuccessNotify("Registered successfully!");
     } catch (error) {
-        alert(error.message)
+        /* alert(error.message) */
+       toastErrorNotify(error.message);
     }
 
 }
@@ -48,14 +56,18 @@ export const signIn =async (email, password,navigate)=> {
         console.log(userCredential);
 
         navigate("/");
+        toastSuccessNotify("Logged in successfully!");
     } catch (error) {
-        alert(error.message)
+        /* alert(error.message) */
+        toastErrorNotify(error.message);
+        
     }
 
 }
 
 export const logOut = () => {
     signOut(auth);
+    toastSuccessNotify("Logged out successfully!");
     
   };
 
@@ -97,3 +109,20 @@ export const signUpProvider = (navigate) => {
         console.log(error);
       });
   };
+
+
+  export const forgotPassword = (email) => {
+    //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        toastWarnNotify("Please check your mail box!");
+        // alert("Please check your mail box!");
+      })
+      .catch((err) => {
+        toastErrorNotify(err.message);
+        // alert(err.message);
+        // ..
+      });
+  };
+   

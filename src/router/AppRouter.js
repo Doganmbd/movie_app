@@ -15,18 +15,22 @@ const AppRouter = () => {
 
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Main/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-        {/* <Route path="/details/:id" element={<MovieDetails/>}/> */}
-        <Route element={<PrivateRouter/>} >
-            <Route path="/details/:id" element={<MovieDetails/>}/>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<PrivateRouter />}>
+          <Route path="/details/:id" element={<MovieDetails />} />
         </Route>
+        {/* <Route path="/details/:id" element={<MovieDetail />} /> */}
+        {/* <Route
+          path="/details/:id"
+          element={currentUser ? <MovieDetail /> : <Navigate to="/login" />}
+        /> */}
       </Routes>
     </Router>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter 

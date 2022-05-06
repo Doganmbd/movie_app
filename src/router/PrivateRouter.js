@@ -12,6 +12,7 @@ const PrivateRouter = () => {
     }
   return  ( 
   <Outlet/> 
+  /* ROute içindeki childrenı ifade eder. */
   )
     
 }

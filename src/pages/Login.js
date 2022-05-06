@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {signIn, signUpProvider} from "../auth/firebase";
+import {signIn, signUpProvider,forgotPassword} from "../auth/firebase";
 
 
 const Login = () => {
@@ -56,6 +56,10 @@ const Login = () => {
               required
             />
           </div>
+
+          <div className="link" onClick={() => forgotPassword(email)}>
+            Forgot password?
+          </div>
           
           <input
             type="submit"
@@ -76,3 +80,4 @@ const Login = () => {
 };
 
 export default Login;
+ 

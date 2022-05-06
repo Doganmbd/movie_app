@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+ import React, { useContext } from 'react'
 import {  useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { toastWarnNotify } from "../helpers/ToastNotify";
 
 
 
@@ -13,7 +14,8 @@ const MovieCard = ({title,poster_path,overview,vote_average,id}) => {
     
     const {currentUser} = useContext(AuthContext)
     let navigate = useNavigate()
-    const handleClick = ()=> (currentUser ? navigate("details/"+id) : alert("Please login to view details"))
+   /*  const handleClick = ()=> (currentUser ? navigate("details/"+id) : alert("Please login to view details")) */
+     const handleClick = ()=> (currentUser ? navigate("details/"+id) : toastWarnNotify("Please log in to see details")) 
 
     
 
@@ -32,4 +34,4 @@ const MovieCard = ({title,poster_path,overview,vote_average,id}) => {
   )
 }
 
-export default MovieCard
+export default MovieCard 
